@@ -4,7 +4,6 @@ import genresReducer from './genres-reducer'
 import booksReducer from './books-reducer'
 
 let reducers = combineReducers({
-    genres: genresReducer,
     books: booksReducer,
 })
 

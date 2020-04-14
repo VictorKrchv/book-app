@@ -1,8 +1,14 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import {Link} from "react-router-dom";
+import { setIsCheck } from '../../../redux/books-reducer';
+import { useDispatch } from 'react-redux';
 
 const Genres = () => {
+
+
+    const dispatch = useDispatch()
+
     return <div className="genres">
         <Container >
             <div className="genres-title">
@@ -24,20 +30,20 @@ const Genres = () => {
                     </Col>
                     <Col>
                         <Link to="/books">
-                            <div className='genres-item'>
+                            <div onClick={() => dispatch(setIsCheck("Fantasy"))} className='genres-item'>
                                 <img src="https://ichef.bbci.co.uk/news/410/cpsprodpb/CDF0/production/_104902725_gettyimages-544452156.jpg" alt="" />
                                 <div>
-                                    <span>Action & Adventure</span>
+                                    <span>Fantasy</span>
                                 </div>
                             </div>
                         </Link>
                     </Col>
                     <Col>
                         <Link to="/books">
-                            <div className='genres-item'>
+                            <div  onClick={() => dispatch(setIsCheck("Historical"))} className='genres-item'>
                                 <img src="https://www.callcentrehelper.com/images/stories/2006/02/mystery-man-760.jpg" alt="" />
                                 <div>
-                                    <span>Historical Fiction</span>
+                                    <span>Historical</span>
                                 </div>
                             </div>
                         </Link>

@@ -1,14 +1,12 @@
 @import "~bootstrap/scss/bootstrap";
 $bg-color: #f8f9fa;
 $light-green: #17a288;
+$gray: #616161;
 
-
-body {
-   
-}
+body {}
 
 .header {
-  
+
 
     a {
         color: inherit;
@@ -126,12 +124,79 @@ body {
 }
 
 
+
+.book {
+    margin-top: 30px;
+    color: $gray;
+    &-img {
+        padding-top: 30px;
+        img {
+            max-width: 100%;
+            height: 250px;
+            box-shadow: 0 0 10px 4px #817d79;
+        }
+
+        margin-bottom: 20px;
+    }
+
+    &-col {
+        &__left {
+            padding-left: 100px;
+
+        
+            p {
+   
+                font-size: 16px;
+                margin-bottom: 0;
+            }
+            span {
+
+            }
+        }
+
+        &__right {
+            button {
+                margin-bottom: 20px;
+            }
+        }
+    }
+
+    &-author {
+        font-size: 16px;
+        span {
+            color: $light-green;
+        }
+    }
+    &-description {
+        font-size: 16px;
+    }
+
+}
+
 .books {
     margin-top: 30px;
 
+    &-col {
+        &__left {
+            background-color: $bg-color;
+        }
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
     &-form {
+        padding-top: 20px;
+        h3 {
+            font-size: 26px;
+        }
+
         button {
             margin-top: 20px;
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
         }
     }
 
@@ -140,16 +205,20 @@ body {
     }
 
     &-item {
-        width: 100%;
-        
+        width: 100%; 
+        transition: .3s ease;
+
         img {
             box-shadow: 0 0 10px 4px #817d79;
             max-width: 100%;
             height: 250px;
             margin-bottom: 10px;
         }
-        p {
 
+        p {}
+
+        &:hover {
+            transform: translateY(-3%);
         }
 
     }
