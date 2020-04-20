@@ -1,11 +1,11 @@
-const SORT_BOOKS = "SORT_BOOKS"
+const SEARCH_BOOKS = "SEARCH_BOOKS"
 const SET_CHECK = "SET_CHECK"
 const CLEAR_CHECKS = "CLEAR_CHECKS"
 const SET_CURRENT_BOOK = "SET_CURRENT_BOOK"
 
 let initialState = {
     books: [
-        {   
+        {
             id: 1,
             title: "Harry Potter",
             author: 'Joanne Rowling',
@@ -57,7 +57,7 @@ let initialState = {
 
 const booksReducer = (state = initialState, action) => {
     switch (action.type) {
-        case SORT_BOOKS: {
+        case SEARCH_BOOKS: {
 
             let filters = state.genres.filter(genre => {
                 return genre.isChecked
@@ -65,19 +65,29 @@ const booksReducer = (state = initialState, action) => {
                 return genre.title
             })
 
-            if (filters.length === 0) {
-                return {
-                    ...state,
-                    sortedBooks: state.books,
-                }
-            }
-            return {
-                ...state,
-                sortedBooks: state.books.filter(book => {
+            let books = []
+            if (filters.length !== 0) {
+                books = state.books.filter(book => {
                     return !filters.some(filter => {
                         return !book.genres.includes(filter)
                     })
                 })
+            } else {
+                books = state.books
+            }
+
+            if (action.value !== '') {
+                books = books.filter(book => {
+                    let result = book.title.toLowerCase().includes(action.value.toLowerCase())
+                    if (!result) {
+                        result = book.author.toLowerCase().includes(action.value.toLowerCase())
+                    }
+                    return result
+                })
+            }
+            return {
+                ...state,
+                sortedBooks: books
             }
 
         }
@@ -114,8 +124,8 @@ const booksReducer = (state = initialState, action) => {
     }
 }
 
-export const sortByGenres = () => ({
-    type: SORT_BOOKS,
+export const searchBooks = (value) => ({
+    type: SEARCH_BOOKS, value
 })
 
 export const setIsCheck = (title) => ({

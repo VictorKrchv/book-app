@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, ListGroup, Form, Button } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
-import { sortByGenres, setIsCheck, clearIsCheck } from '../../redux/books-reducer';
+import { searchBooks, setIsCheck, clearIsCheck } from '../../redux/books-reducer';
 import { Link } from 'react-router-dom';
 
 
@@ -13,7 +13,7 @@ const BooksPage = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(sortByGenres())
+        dispatch(searchBooks(value))
 
         return function clean() {
             dispatch(clearIsCheck())
@@ -21,16 +21,16 @@ const BooksPage = () => {
     }, []);
 
 
-
-
     let onSubmit = (e) => {
         e.preventDefault()
-        dispatch(sortByGenres())
+        dispatch(searchBooks(value))
     }
 
     let onChange = title => {
         dispatch(setIsCheck(title))
     }
+
+    let [value, setValue] = useState('')
 
     return (
         <div className="books">
@@ -48,6 +48,15 @@ const BooksPage = () => {
                                     </Form.Check>
                                 </div>
                             )) : null}
+
+                            <Form.Group >
+                                <Form.Label><h3>Search a book:</h3></Form.Label>
+                                <Form.Control type="text" 
+                                                placeholder="Write here" 
+                                                value={value}
+                                                onChange={(e) => setValue(e.target  .value)}
+                                 />
+                            </Form.Group>
                             <Button type="submit" variant="success" block>Search</Button>
                         </Form>
                     </Col>

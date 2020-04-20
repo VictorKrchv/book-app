@@ -1,8 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Navbar, Nav, NavDropdown, Button, FormControl, Form, Container } from 'react-bootstrap';
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { searchBooks } from '../../redux/books-reducer';
 
 const Header = () => {
+
+    let [value, setValue] = useState('')
+    
+    const dispatch = useDispatch()
+    const history = useHistory()
+
+    let onSubmit = (e) => {
+        e.preventDefault()
+        history.push("/books");
+        dispatch(searchBooks(value))
+    }
+
     return (
         <Navbar bg="light" expand="lg" className="header">
             <Container>
@@ -20,9 +34,9 @@ const Header = () => {
                             <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
-                    <Form inline>
-                        <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                        <Button variant="outline-success">Search</Button>
+                    <Form inline onSubmit={(e) => onSubmit(e)} >
+                        <FormControl type="text" placeholder="Search" className="mr-sm-2" value={value} onChange={(e) => setValue(e.currentTarget.value)} />
+                        <Button variant="outline-success" type="submit">Search</Button>
                     </Form>
                 </Navbar.Collapse>
             </Container>
